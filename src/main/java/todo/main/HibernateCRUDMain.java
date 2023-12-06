@@ -1,5 +1,7 @@
 package todo.main;
 
+import java.io.Serializable;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +12,21 @@ import todo.utils.HibernateUtils;
 
 public class HibernateCRUDMain {
 
+
+	private static void selectOneCourse() {
+		// TODO Auto-generated method stub
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Class<Course> entityClassType = Course.class;
+		Serializable entityId = 101;
+		
+		Course foundCourse = session.load(entityClassType, entityId);
+		System.out.println(foundCourse);
+		session.close();
+		factory.close();
+		
+	}
+	
 	private static void createNewCourse() {
 		// TODO Auto-generated method stub
 		SessionFactory factory = HibernateUtils.getSessionFactory();
@@ -29,8 +46,6 @@ public class HibernateCRUDMain {
 			session.save(course);
 		}
 		
-//		session.save(c);
-		
 		hibernateTransaction.commit();
 		session.close();
 		factory.close();
@@ -40,7 +55,10 @@ public class HibernateCRUDMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		createNewCourse();
+//		createNewCourse();
+		selectOneCourse();
+		
 	}
+
 
 }
