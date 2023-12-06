@@ -12,6 +12,23 @@ import todo.utils.HibernateUtils;
 
 public class HibernateCRUDMain {
 
+	private static void updateCourse() {
+		// TODO Auto-generated method stub
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		Class<Course> entityClassType = Course.class;
+		Serializable entityId = 104;
+		Course foundCourse = session.load(entityClassType, entityId);
+		
+		Transaction tx = session.beginTransaction();
+		foundCourse.setTitle("ASP.NET");
+		foundCourse.setDuration(60);
+		foundCourse.setFees(7000);
+		tx.commit();
+		session.close();
+		factory.close();
+		System.out.println("Updated Record");
+	}
 
 	private static void selectOneCourse() {
 		// TODO Auto-generated method stub
@@ -75,7 +92,9 @@ public class HibernateCRUDMain {
 		// TODO Auto-generated method stub
 //		createNewCourse();
 //		selectOneCourse();
-		deleteCourse();
+//		deleteCourse();
+		updateCourse();
 	}
+
 
 }
