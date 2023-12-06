@@ -27,6 +27,24 @@ public class HibernateCRUDMain {
 		
 	}
 	
+
+	private static void deleteCourse() {
+		// TODO Auto-generated method stub
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		Session session = factory.openSession();
+		
+		Class<Course> entityClassType = Course.class;
+		Serializable entityId = 105;
+		Course foundCourse= session.load(entityClassType, entityId);
+		Transaction tx = session.beginTransaction();
+		session.delete(foundCourse);
+		tx.commit();
+		session.close();
+		factory.close();
+		System.out.println("Recorded Deleted");
+	}
+
+	
 	private static void createNewCourse() {
 		// TODO Auto-generated method stub
 		SessionFactory factory = HibernateUtils.getSessionFactory();
@@ -56,9 +74,8 @@ public class HibernateCRUDMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		createNewCourse();
-		selectOneCourse();
-		
+//		selectOneCourse();
+		deleteCourse();
 	}
-
 
 }
